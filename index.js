@@ -21,7 +21,6 @@ const promptUser = () => {
         "Issues",
         "Issues Closed",
         "Release Version by Date",
-        "License",
       ],
     },
     {
@@ -55,21 +54,49 @@ const promptUser = () => {
       name: "license",
     },
     {
+      type: "confirm",
+      name: "confirmTest",
+      message:
+        "Would you like to enter information on how is this project tested??",
+      default: true,
+    },
+    {
       type: "input",
-      message: "How is this project tested?",
       name: "test",
+      message: "How is this project tested?:",
+      when: ({ confirmTest }) => {
+        if (confirmTest) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+    },
+    {
+      type: "confirm",
+      name: "confirmContribute",
+      message:
+        "Would you like to enter some information about how can someone contribute to this project?",
+      default: true,
     },
     {
       type: "input",
-      message: "Lastly, how can someone contribute to this project?",
       name: "contribute",
+      message: "How can someone contribute to this project?:",
+      when: ({ confirmContribute }) => {
+        if (confirmContribute) {
+          return true;
+        } else {
+          return false;
+        }
+      },
     },
     {
-        type: "confirm",
-        name: "image",
-        message: "Would you like to display your user image?",
-        default: false,
-      },
+      type: "confirm",
+      name: "image",
+      message: "Would you like to display your user image?",
+      default: false,
+    },
   ]);
 };
 
@@ -78,8 +105,7 @@ function writeToFile(fileName, data) {}
 
 // function to initialize program
 function init() {
-    promptUser()
-        .then(answers => console.log(answers));        
+  promptUser().then((answers) => console.log(answers));
 }
 
 // function call to initialize program
