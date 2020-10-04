@@ -1,5 +1,8 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
+const generateMarkdown = require("./utils/generateMarkdown.js");
+const ghUserApi = require("./utils/githubUser.js");
+const writeFile = require('./utils/generateMarkdownFile.js');
 
 // array of questions for user
 const promptUser = () => {
@@ -26,6 +29,19 @@ const promptUser = () => {
           return true;
         } else {
           console.log("Please enter your GitHub email address!");
+          return false;
+        }
+      },
+    },
+    {
+      type: "input",
+      name: "repoName",
+      message: "What is the name of the repository eg. repo-name? (Required)",
+      validate: (projectTitleInput) => {
+        if(projectTitleInput) {
+          return true;
+        } else {
+          console.log("Please enter the name of your repository!");
           return false;
         }
       },
@@ -167,7 +183,29 @@ function writeToFile(fileName, data) {}
 
 // function to initialize program
 function init() {
-  promptUser().then((answers) => console.log(answers));
+  var data = {};
+  promptUser()
+    .then((answers) => {
+      data = answers;
+      return answers;
+    })
+    .then(ghUserData => {
+      const ghUserTemp = ghUserApi.getUser(ghUserData.accountName);
+      return ghUserTemp;
+    })
+    .then(temData => {
+      data.imageUrl = temData.data.avatar_url;
+      data.userFullName = temData.data.name;
+    })
+    .then(generateMD => {
+      return generateMarkdown(data);
+    })
+    .then(pageReadme => {
+      return writeFile(pageReadme);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }
 
 // function call to initialize program

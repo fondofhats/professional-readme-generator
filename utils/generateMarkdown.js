@@ -1,8 +1,147 @@
 // function to generate markdown for README
-function generateMarkdown(data) {
-  return `# ${data.title}
 
-`;
-}
+const generateBadges = (badges,user,repo)=> {
+  let badgeArray = [];
+  if(!badges) {
+    return '';
+  }
+  badges.forEach(e => {
+    switch(e){
+      case "Language Count":
+        badgeArray.push('![GitHub language count](https://img.shields.io/github/languages/count/' + user + '/' +repo +')');
+        break;
+      case "Top Language":
+        badgeArray.push('![GitHub top language](https://img.shields.io/github/languages/top/'+user+'/'+repo+')');
+        break;
+      case "Code Size":
+        badgeArray.push('![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/'+user+'/'+repo+')');
+        break;
+      case "Repo Size":
+        badgeArray.push('![GitHub repo size](https://img.shields.io/github/repo-size/'+user+'/'+repo+')');
+        break;
+      case "Issues":
+        badgeArray.push('![GitHub issues](https://img.shields.io/github/issues-raw/'+user+'/'+repo+')');
+        break;
+      case "Issues Closed":
+        badgeArray.push('![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/'+user+'/'+repo+')');
+        break;
+      case "Release Version by Date":
+        badgeArray.push('![GitHub release (latest by date)](https://img.shields.io/github/v/release/'+user+'/'+repo+')');
+        break;
+      default:
+        break;
+    }
+  });
+  return badgeArray.join(' ');
+};
 
-module.exports = generateMarkdown;
+const generateInstall = installText => {
+  if(!installText) {
+    return '';
+  } 
+  return `
+  ## Installation
+  \`\`\`shell
+    ${installText}
+  \`\`\`
+  `;
+};
+
+const generateUsage = (usageText, user, repo) => {
+  if(!usageText) {
+    return '';
+  }
+  return `
+  ## Installation And Setup
+  1. Clone the repo
+
+  \`\`\`shell
+  git@github.com:${user}/${repo}.git
+  \`\`\`
+
+  2. Move to the project root directory
+
+\`\`\`shell
+  cd ${repo}
+\`\`\`
+
+3. Run npm install
+
+\`\`\`shell
+npm install
+\`\`\`
+
+4. Run Readme Generator
+
+\`\`\`shell
+${usageText}
+\`\`\`
+
+  `;
+};
+
+const generateLicense = (licenseBadge,user,repo) => {
+  if(!licenseBadge){
+    return '';
+  }
+  return `
+  ## License
+  ![GitHub](https://img.shields.io/github/license/${user}/${repo}?style=plastic)
+  `;
+};
+
+const generateTest = testInput => {
+  if(!testInput) {
+    return '';
+  }
+  return `
+  ## Tests
+  ${testInput}  
+  `;
+};
+
+const generateContribute = contribInput => {
+  if(!contribInput) {
+    return '';
+  }
+  return `
+  ## Contribute
+  ${contribInput}  
+  `;
+};
+
+const showImage = (showImageUrl,imageUrl) => {
+  if(!showImageUrl){
+    return '';
+  }
+  return `
+  <img src="${imageUrl}" width="200" height="200"/>
+  `;
+};
+
+
+const generateMarkdown = (data) => {
+  return `
+  # [${data.projectTitle}](https://github.com/${data.accountName}/${data.repoName})
+  ![Most recent commit](https://img.shields.io/github/last-commit/${data.accountName}/${data.repoName})
+  ${generateBadges(data.badges,data.accountName,data.repoName)}
+  ## Description
+  ${data.description}
+  ## Table of Contents
+  * [Installation And Setup](##Installation And Setup)
+  * [Usage](##Usage)
+  * [License](##License)
+  * [Tests](##Tests) 
+  * [Contribute](##Contribute)
+  ${generateInstall(data.install)}
+  ${generateUsage(data.use,data.accountName, data.repoName)}
+  ${generateLicense(data.displayLicense,data.accountName,data.repoName)}
+  ${generateTest(data.test)}
+  ${generateContribute(data.contribute)}
+
+  ## Support
+  ${showImage(data.image,data.imageUrl)}
+  <br/>Email ${data.userFullName} with any support questions at <a href="mailto:${data.accountEmail}">${data.accountEmail}</a>
+  `;
+  };
+  module.exports = generateMarkdown;
