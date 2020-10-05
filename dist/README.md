@@ -1,12 +1,12 @@
 
-  # [adf](https://github.com/fondofhats/professional-readme-generator)
+  # [Professional Readme Generator](https://github.com/fondofhats/professional-readme-generator)
   
   ![GitHub](https://img.shields.io/github/license/fondofhats/professional-readme-generator?style=plastic)
   
   ![Most recent commit](https://img.shields.io/github/last-commit/fondofhats/professional-readme-generator)
-  ![GitHub issues](https://img.shields.io/github/issues-raw/fondofhats/professional-readme-generator)
+  ![GitHub repo size](https://img.shields.io/github/repo-size/fondofhats/professional-readme-generator) ![GitHub issues](https://img.shields.io/github/issues-raw/fondofhats/professional-readme-generator) ![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/fondofhats/professional-readme-generator)
   ## Description
-  asfd
+  Awesomeness in a jar
   ## Table of Contents
   * [Installation](##Installation)
   * [Usage](##Usage)
@@ -15,6 +15,40 @@
   * [Contribute](##Contribute)
   * [Questions](##Questions)
   
+  ## Installation
+  ```shell
+    npm install
+  ```
+  
+  
+  ## Usage
+
+  ### Setup Instructions
+
+  1. Clone the repo
+
+  ```shell
+  git@github.com:fondofhats/professional-readme-generator.git
+  ```
+
+  2. Move to the project root directory
+
+```shell
+cd professional-readme-generator
+```
+
+3. Run npm install
+
+```shell
+npm install
+```
+
+4. Run Readme Generator
+
+```shell
+node index.js
+```
+
   
   
   ## License
@@ -23,7 +57,7 @@
 
  MIT License
 
-Copyright (c) 2020 adf
+Copyright (c) 2020 Professional Readme Generator
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -46,15 +80,22 @@ SOFTWARE.
 
   
   
+  ## Tests
+  Oh, it's tested alright!  
+  
+  
+  ## Contribute
+  Email me  
   
 
 <br />
 
   ## Questions
+<br />
 
   
   <img src="https://avatars0.githubusercontent.com/u/11549316?v=4" width="200" height="200"/>
   
-  <br/>Email Michael Giddings with any support questions at <a href="mailto:adf">adf</a><br>
+  <br/>Email Michael Giddings with any support questions at <a href="mailto:mikegiddings@gmail.com">mikegiddings@gmail.com</a><br>
   or visit my <a href="https://github.com/fondofhats">GitHub Homepage</a>.
   
