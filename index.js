@@ -1,3 +1,5 @@
+
+/* eslint-disable no-unused-vars */
 const fetch = require("node-fetch");
 const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown.js");
@@ -178,13 +180,10 @@ const promptUser = () => {
   ]);
 };
 
-// function to write README file
-function writeToFile(fileName, data) {}
 
 // function to initialize program
 function init() {
   var data = {};
-  let repoData = {};
   promptUser()
     .then((answers) => {
       data = answers;
