@@ -1,4 +1,3 @@
-const fs = require("fs");
 const fetch = require("node-fetch");
 const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown.js");
