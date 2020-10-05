@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-/* eslint-disable no-unused-vars */
-=======
->>>>>>> feature/generate-readme
 const fetch = require("node-fetch");
 const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown.js");
