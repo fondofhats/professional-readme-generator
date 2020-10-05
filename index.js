@@ -1,5 +1,3 @@
-
-/* eslint-disable no-unused-vars */
 const fetch = require("node-fetch");
 const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown.js");
