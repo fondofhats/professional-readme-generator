@@ -1,4 +1,5 @@
 const fs = require("fs");
+const fetch = require("node-fetch");
 const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown.js");
 const ghUserApi = require("./utils/githubUser.js");
@@ -184,6 +185,7 @@ function writeToFile(fileName, data) {}
 // function to initialize program
 function init() {
   var data = {};
+  let repoData = {};
   promptUser()
     .then((answers) => {
       data = answers;
@@ -197,14 +199,43 @@ function init() {
       data.imageUrl = temData.data.avatar_url;
       data.userFullName = temData.data.name;
     })
-    .then(generateMD => {
-      return generateMarkdown(data);
-    })
-    .then(pageReadme => {
-      return writeFile(pageReadme);
-    })
-    .catch(err => {
-      console.log(err);
+    .then(getRepoData =>{
+      const repData = fetch('https://api.github.com/repos/'+data.accountName+'/'+data.repoName)
+      .then((response) => {
+        return response.json();
+      })
+      .then((rData) => {
+        return rData;
+      })
+      .then(compInfo => {
+        data.licenseInfo = compInfo.license;
+      })
+      .then(licenseDetail => {
+        const licDetail = fetch(data.licenseInfo.url)
+        .then((response) => {
+          return response.json();
+        })
+        .then((lData) => {
+          return lData;
+        })
+        .then(compLInfo => {
+          data.licenseDetail = compLInfo;
+         /*  console.log(data); */
+        })
+        .then(generateMD => {
+          /* console.log(data); */
+          return generateMarkdown(data);
+        })
+        .then(pageReadme => {
+          return writeFile(pageReadme);
+        })
+        .then(writeFileResponse =>{
+          console.log(writeFileResponse.message);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      });
     });
 }
 

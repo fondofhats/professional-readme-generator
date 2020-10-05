@@ -52,7 +52,10 @@ const generateUsage = (usageText, user, repo) => {
     return '';
   }
   return `
-  ## Installation And Setup
+  ## Usage
+
+  ### Setup Instructions
+
   1. Clone the repo
 
   \`\`\`shell
@@ -62,7 +65,7 @@ const generateUsage = (usageText, user, repo) => {
   2. Move to the project root directory
 
 \`\`\`shell
-  cd ${repo}
+cd ${repo}
 \`\`\`
 
 3. Run npm install
@@ -85,8 +88,23 @@ const generateLicense = (licenseBadge,user,repo) => {
     return '';
   }
   return `
-  ## License
   ![GitHub](https://img.shields.io/github/license/${user}/${repo}?style=plastic)
+  `;
+};
+const generateLicenseInfo = (licenseBadge,licenseInfo, licenseDetail, title) => {
+  let licenseBlob = '';
+  if(!licenseBadge) {
+    return '';
+  }
+  licenseBlob = licenseDetail.body.replace("[year]", new Date().getFullYear()).replace("[fullname]",title);
+
+  return `
+  ## License
+
+  **Licensed under the ${licenseInfo.name}.**
+
+ ${licenseBlob}
+
   `;
 };
 
@@ -110,6 +128,7 @@ const generateContribute = contribInput => {
   `;
 };
 
+
 const showImage = (showImageUrl,imageUrl) => {
   if(!showImageUrl){
     return '';
@@ -123,25 +142,31 @@ const showImage = (showImageUrl,imageUrl) => {
 const generateMarkdown = (data) => {
   return `
   # [${data.projectTitle}](https://github.com/${data.accountName}/${data.repoName})
+  ${generateLicense(data.displayLicense,data.accountName,data.repoName)}
   ![Most recent commit](https://img.shields.io/github/last-commit/${data.accountName}/${data.repoName})
   ${generateBadges(data.badges,data.accountName,data.repoName)}
   ## Description
   ${data.description}
   ## Table of Contents
-  * [Installation And Setup](##Installation And Setup)
+  * [Installation](##Installation)
   * [Usage](##Usage)
   * [License](##License)
   * [Tests](##Tests) 
   * [Contribute](##Contribute)
+  * [Questions](##Questions)
   ${generateInstall(data.install)}
   ${generateUsage(data.use,data.accountName, data.repoName)}
-  ${generateLicense(data.displayLicense,data.accountName,data.repoName)}
+  ${generateLicenseInfo(data.displayLicense,data.licenseInfo,data.licenseDetail,data.projectTitle)}
   ${generateTest(data.test)}
   ${generateContribute(data.contribute)}
 
-  ## Support
+
+  ## Questions
+
   ${showImage(data.image,data.imageUrl)}
-  <br/>Email ${data.userFullName} with any support questions at <a href="mailto:${data.accountEmail}">${data.accountEmail}</a>
+  <br/>Email ${data.userFullName} with any support questions at <a href="mailto:${data.accountEmail}">${data.accountEmail}</a><br>
+  or visit my <a href="https://github.com/${data.accountName}">GitHub Homepage</a>.
   `;
   };
+
   module.exports = generateMarkdown;
