@@ -160,8 +160,10 @@ const generateMarkdown = (data) => {
   ${generateTest(data.test)}
   ${generateContribute(data.contribute)}
 
-<br>
+<br />
+
   ## Questions
+<br />
 
   ${showImage(data.image,data.imageUrl)}
   <br/>Email ${data.userFullName} with any support questions at <a href="mailto:${data.accountEmail}">${data.accountEmail}</a><br>
